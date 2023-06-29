@@ -1,12 +1,50 @@
-# Bitácora de trabajo y proyecto final
+
+Hola, bienvenido. 
+Esta es la documentacion del proyecto final !
 Estoy trabajando con [kquita](https://github.com/kquita) y [valefuentes](https://github.com/valefuentes)
 
-# proyecto-final
-# proyecto-final
+  #### Contenidos de este repositorio 
 
-todo
-Arduino
-//Codigo de arduino trabajado en clases 02/06/23
++
++
++
++
+_____
+# Acerca de 
+Proyecto ETCH A SKETCH: JUGUETE ANÁLOGO EN LA ERA DIGITAL- visualización y principios de interfaz interactiva
+
+[Junio, 2023]
+
+Estudiantes: [Pilar Vergara](https://github.com/JustPili1), [Valentina Fuentes](https://github.com/valefuentes) y [Silvana Olivares](https://github.com/kquita)
+
+Profesores: [Aaron Montoya](https://github.com/montoyamoraga)
+
+Ayudante : [Ignacio Passalacqua](https://github.com/ipassala)
+
+Ramo: Diseño de interfaz electrónica mediante Arduino (AUD5I022-1)
+_____
+*Video*
+
+## Materiales 
+#### Hardware
++ Arduino uno
++ 2 Protoboard
++ 3 potenciometros
++ Pulsador 
++ Resistencia de 220R
++ 5 cables rojos
++ 5 cables verdes
++ 1 cable blanco
++ 1 Cable azul
++ 2 amarillos
+
+  #### Software: 
++ Arduino IDE
++ Processing
+
+#### Codigo para Arduino Uno
+```java
+ //Codigo de arduino trabajado en clases 02/06/23
 int potX;
 int potY;
 //agregamos un boton para reiniciar el dibujo
@@ -23,7 +61,7 @@ void loop() {
   potY = analogRead(A1);
   grosorLinea = analogRead(A2);
   // estamos seteando el grosor de la línea, para esto ocupamos la función de MAP
-  grosorLinea = map(grosorLinea, 0, 1023, 1, 10); 
+  grosorLinea = map(grosorLinea, 0, 1023, 1, 10);
   borrar = digitalRead(8);
   Serial.print(potX);
   Serial.print(" ");
@@ -34,11 +72,11 @@ void loop() {
   Serial.println(borrar);
   delay(50);
 }
+```
 
-
-Processing 
-
-//y este es el codigo de processing: // Etch-a-Sketch
+#### Codigo para Processing: 
+ ```java
+ // Etch-a-Sketch
 // based on a sketch by Trevor Shannon
 
 //falta la intro y el hardware
@@ -71,7 +109,7 @@ void draw() {
   String[] parts = splitTokens(nextXY);
   //separamos la informacion que está llegando en tres datos
   if (parts.length >= 3) {
-    // está epartido en dos porque el canvas es de 512px, y los valores del potenciometro son el doble (0 a 1024)
+    //está partido en dos porque el canvas es de 512px, y los valores del potenciometro son el doble (0 a 1024)
     //esto se puede solucionar con un mapeo, que sirve para setear nuevos rangos del potenciometro
     x = int(parts[0])/2;
     y = int(parts[1])/2;
@@ -96,7 +134,45 @@ void serialEvent(Serial p) {
   nextXY = p.readString();
   print(x,y, grosorLinea);
   print("\n");
-  
-  
+ 
+ 
 }
 
+```
+### Referentes y recursos adicionales 
+http://workshopweekend.net/arduino/projects/etch_a_sketch
+
+Paz Castro [pabecy](https://github.com/Pabecy/clase-09-proyecto-mitad-semestre)
+
+https://processing-spain.blogspot.com/2015/09/312-definir-el-grosor-del-borde.html
+
+
+## Analisis del Código 
+
+###  En Arduino 
+ Se establecen las variables:
+ + X / para almacenar el valor del eje X
+ + Y / para almacenar el valor del eje X
+ + borrar / para reiniciar el dibujo
+ + grosorLinea / variable del grosor de línea
+
+####  Void setup 
+Se inicia la comunicación serial en 9600 Baudios
+
+####  Void Loop
+A las variables se le asignan los valores de pines análogos específicos ya mencionados y grosorLinea se mapea para poder redefinir el rango de 0-1024 para dejarlo en 1-10 (para tener 10 valores de linea distintos)
+
+####  En Processing
+####  Void setup 
+ Se establecem las dimensionesel canva y el color del fondo 
+####  Void Draw
+ Se dan las indicasiones para que el pulsador permita borrar lo anteriormente hecho.
+ Se separa la información que llega en tres datos.
+ Se establecen los límites de la línea (X, Y) con respecto al canva dado que los datos del potenciómetro duplica el tamaño del canva.
+ Se crea la línea con los dos datos que indican el grosor y la posición
+####  Void mouseClicked
+ Permite que al apretar el botón el fondo del canva vuelva a ser blanco.
+####  Void serialEvent
+ Se recibe la información con la que vamos a hacer la linea de dibujo.
+
+## Concluciones
